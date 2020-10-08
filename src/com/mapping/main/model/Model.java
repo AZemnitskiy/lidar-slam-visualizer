@@ -1,4 +1,6 @@
-package com.mapping.main;
+package com.mapping.main.model;
+
+import com.mapping.main.Map;
 
 import java.awt.Graphics;
 import java.util.ArrayList;

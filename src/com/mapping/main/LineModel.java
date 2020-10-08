@@ -1,5 +1,8 @@
 package com.mapping.main;
 
+import com.mapping.main.model.DataPoint;
+import com.mapping.main.model.Model;
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -8,7 +11,7 @@ import java.util.ArrayList;
  * This object holds the information for RANSAC to extract lines from the lidar points
  */
 
-public class LineModel extends Model{
+public class LineModel extends Model {
 	public double a;	//line equation
 	public double b;	//line equation
 	public double c;	//line equation
@@ -83,7 +86,8 @@ public class LineModel extends Model{
 		double ss_xx = 0, ss_yy = 0, ss_xy = 0, mean_x = 0, mean_y = 0;
 		
 		for(DataPoint d : points)
-		{			ss_xx += Math.pow(d.x, 2);
+		{
+			ss_xx += Math.pow(d.x, 2);
 			ss_yy += Math.pow(d.y, 2);
 			ss_xy += d.x*d.y;
 			mean_x += d.x;

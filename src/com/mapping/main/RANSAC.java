@@ -1,5 +1,8 @@
 package com.mapping.main;
 
+import com.mapping.main.model.DataPoint;
+import com.mapping.main.model.Model;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,20 +13,19 @@ public class RANSAC extends Thread{
 	
 	public ArrayList<Model> bestModels;		//A list of the Best models that have been found
 	public double maxEvaluations = 1000;	//How man iterations to run
-	public double maxSamplings = 50;		//How many samples to retrieve in each run
-	public double probability = .95;		//probability of inliers
-	public static int minConsensus = 30;	//The minimum number of points for it to be considered a landmark
-	public static int minSameLineDistance = 50;	//The minimum distance 2 landmarks need to be from each other to be considered the same land mark
-	public static int sameSampleThreshold = 10; //the minimum average distance between points to add the point to the sample
+	public double maxSamplings = 100;		//How many samples to retrieve in each run
+	public double probability = .8;		//probability of inliers
+	public static int minConsensus = 20;	//The minimum number of points for it to be considered a landmark
+	public static int minSameLineDistance = 80;	//The minimum distance 2 landmarks need to be from each other to be considered the same land mark
+	public static int sameSampleThreshold = 20; //the minimum average distance between points to add the point to the sample
 	public static int s = 5;					//the minimum number of points in a sample
 	public static double t = 5;					//the max distance a point can be from a line to be considered an inlier
 	public boolean debug = false;
 	public static ArrayList<DataPoint> map;		//a list to hold all current points
-	private static int delay = 10;				//delay of the thread
+	private static int delay = 1;		//delay of the thread
 	public Model m;								//the type of model we are looking for
 	private ArrayList<ArrayList<DataPoint>> usedSets; //a list to hold all the sets we have used
-	
-	
+
 	public RANSAC(Model m)
 	{
 		this.m = m;
@@ -113,15 +115,15 @@ public class RANSAC extends Thread{
 					{
 						int index = r.nextInt(map.size()-1)+1;
 						/*if(sample.size() > 0)
-						{
-							double distance = this.getDistanceBetweenPoints(sample.get(sample.size()-1).x, sample.get(sample.size()-1).y,map.get(index).x, map.get(index).y);
-							if((averageDistance == 0 &&  distance >= sameSampleThreshold) || distance <= averageDistance+sameSampleThreshold)
-							{
-								averageDistance += distance;
-								averageDistance /= sample.size();
-								sample.add(map.get(index));
-							}
-						}else
+//						{
+//							double distance = this.getDistanceBetweenPoints(sample.get(sample.size()-1).x, sample.get(sample.size()-1).y,map.get(index).x, map.get(index).y);
+//							if((averageDistance == 0 &&  distance >= sameSampleThreshold) || distance <= averageDistance+sameSampleThreshold)
+//							{
+//								averageDistance += distance;
+//								averageDistance /= sample.size();
+//								sample.add(map.get(index));
+//							}
+//						}else
 						{*/
 							sample.add(map.get(index));
 						//}
@@ -301,12 +303,12 @@ public class RANSAC extends Thread{
 	public DataPoint[] getPoints()
 	{
 		print("GET POINTS CALLED");
-		DataPoint[] d = new DataPoint[181];
+		DataPoint[] d = new DataPoint[360];
 		for(int i = 0; i < Map.points.length; i++)
 		{
 			if(Map.points[i] != null)
 			{
-				DataPoint newD = new DataPoint(Map.points[i].x,Map.points[i].y,Map.points[i].angle);
+				DataPoint newD = new DataPoint(Map.points[i].x,Map.points[i].y,Map.points[i].angle, Map.points[i].quality);
 				d[i] = newD;
 			}
 			else

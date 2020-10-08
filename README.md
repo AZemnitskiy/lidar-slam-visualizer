@@ -1,8 +1,9 @@
-# Robot_Mapping
-SLAM Mapping Component of Robot.  Uses RANSAC for Landmark Extraction
+# SLAM with XV-11 Lidar
+SLAM Mapping Component of Robot that uses RANSAC for landmark extraction on XV-11 lidar feed.
+- Ransac was taken from from https://github.com/Tyler-Gauch/Robot_Mapping.git
+- XV11Lidar class contains Java implementation of Neato lidar protocol. 
 
-Successfully uses the RANSAC Algorithm and input from a Lidar to pull out line landmarks.
+ 
 
-#Currently still in development
 
-# Last Update: 8/27/2015
+
